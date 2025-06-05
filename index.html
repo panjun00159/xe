@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迷你世界XE炸图辅助 - 完全免费</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 20px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: #ff4d94;
+            text-shadow: 0 0 15px rgba(255, 77, 148, 0.7);
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff4d94, #ff9a5a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 77, 148, 0.3);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: #e0e0ff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: #ff4d94;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ff4d94, #ff9a5a);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 77, 148, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff4d94, #ff9a5a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 77, 148, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 40px;
+            color: #e0e0ff;
+            line-height: 1.6;
+        }
+        
+        .free-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #00cc66, #00ff99);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 153, 0.5);
+            animation: pulse 2s infinite;
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, #ff4d94, #ff9a5a);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(255, 77, 148, 0.4);
+            margin-top: 20px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 77, 148, 0.6);
+        }
+        
+        .features {
+            padding: 100px 10%;
+            background: rgba(10, 15, 30, 0.8);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 70px;
+            background: linear-gradient(45deg, #4d79ff, #5ae1ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background: rgba(30, 35, 60, 0.7);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 77, 148, 0.3);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff4d94, #ff9a5a);
+        }
+        
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            color: #ff9a5a;
+            text-shadow: 0 0 20px rgba(255, 154, 90, 0.5);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #ff9a5a;
+        }
+        
+        .feature-card p {
+            color: #c0c0ff;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        
+        .download {
+            padding: 100px 10%;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(10, 15, 30, 0.8), #0a0f1f);
+        }
+        
+        .download-box {
+            background: rgba(30, 35, 60, 0.7);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px;
+            border-radius: 30px;
+            border: 1px solid rgba(77, 122, 255, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        .download-box h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #4d79ff, #5ae1ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .download-box p {
+            font-size: 1.2rem;
+            color: #c0c0ff;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .step {
+            background: rgba(50, 55, 90, 0.5);
+            border-radius: 20px;
+            padding: 25px;
+            width: 200px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .step-number {
+            background: linear-gradient(45deg, #ff4d94, #ff9a5a);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+        
+        .step p {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(5, 10, 20, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+            color: #a0a0d0;
+        }
+        
+        .disclaimer {
+            max-width: 800px;
+            margin: 20px auto 0;
+            padding: 15px;
+            background: rgba(200, 0, 0, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 50, 50, 0.3);
+            font-size: 0.9rem;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px rgba(0, 255, 153, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 153, 0.8); }
+            100% { box-shadow: 0 0 20px rgba(0, 255, 153, 0.5); }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 5%;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-bomb"></i>
+            </div>
+            <div class="logo-text">XE炸图辅助</div>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="#"><i class="fas fa-home"></i> 首页</a>
+            <a href="#features"><i class="fas fa-star"></i> 功能</a>
+            <a href="#download"><i class="fas fa-download"></i> 下载</a>
+            <a href="#"><i class="fas fa-question-circle"></i> 帮助</a>
+        </nav>
+    </header>
+    
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <h1>迷你世界XE炸图辅助</h1>
+        <p>最强大的迷你世界辅助工具，提供无与伦比的炸图体验<br>完全免费，无需任何付费，立即下载体验！</p>
+        
+        <div class="free-badge">
+            <i class="fas fa-crown"></i> 永久免费
+        </div>
+        
+        <button class="cta-button">
+            立即下载 <i class="fas fa-arrow-down"></i>
+        </button>
+    </section>
+    
+    <!-- 功能区域 -->
+    <section class="features" id="features">
+        <h2 class="section-title">特色功能</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>免费过反外挂</h3>
+                <p>完美绕过所有反外挂系统，安全无忧使用，永久免费更新，持续保障您的账号安全。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h3>云服飞行无拉回</h3>
+                <p>在云服务器中自由飞行，无拉回现象，享受真正的自由探索体验，无视服务器限制。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-secret"></i>
+                </div>
+                <h3>创造伪装房主</h3>
+                <p>伪装成房主模式，获得创造权限，随心所欲建造和破坏，真正的炸图体验。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bomb"></i>
+                </div>
+                <h3>一键炸图</h3>
+                <p>瞬间摧毁整个地图，震撼视觉效果，多种炸图模式可选，满足不同需求。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-lock-open"></i>
+                </div>
+                <h3>无限制使用</h3>
+                <p>完全免费，无任何功能限制，无需注册登录，下载即用，永久免费更新。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <h3>自动更新</h3>
+                <p>实时检测最新版本，一键更新，无需重新下载，始终保持最佳功能状态。</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 下载区域 -->
+    <section class="download" id="download">
+        <div class="download-box">
+            <h2>立即下载XE炸图辅助</h2>
+            <p>完全免费，无任何隐藏费用，支持所有迷你世界版本，永久更新保障</p>
+            
+            <button class="cta-button" style="padding: 18px 50px; font-size: 1.3rem;">
+                <i class="fas fa-download"></i> 免费下载 (v2.5.8)
+            </button>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <p>点击下载按钮</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <p>解压文件到任意位置</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <p>运行辅助程序</p>
+                </div>
+            </div>
+            
+            <p style="font-size: 1rem; color: #a0a0d0;">
+                <i class="fas fa-exclamation-triangle"></i> 支持 Windows 7/8/10/11 系统
+            </p>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p> 2023 迷你世界XE炸图辅助 - 完全免费版本 | 永久更新保障</p>
+        <p>联系我们: support@xe-helper.com | 官方QQ群: 123456789</p>
+        
+        <div class="disclaimer">
+            免责声明：本程序仅供学习交流使用，请勿用于非法用途。使用本软件产生的一切后果由使用者自行承担。
+        </div>
+    </footer>
+    
+    <script>
+        // 平滑滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // 按钮悬停效果增强
+        const buttons = document.querySelectorAll('.cta-button');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.background = 'linear-gradient(45deg, #ff9a5a, #ff4d94)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.background = 'linear-gradient(45deg, #ff4d94, #ff9a5a)';
+            });
+        });
+        
+        // 页面滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(0, 0, 0, 0.9)';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.5)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.7)';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
